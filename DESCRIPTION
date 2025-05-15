@@ -1,0 +1,28 @@
+Package: CaseAirCross
+Title: Case-Crossover Analysis for Air Pollution Health Effects
+Version: 0.1.0
+Description: |
+  An R package for analyzing short-term health effects of air pollution 
+  using case-crossover design. Supports spatial matching of pollution 
+  data (NetCDF format) and automated statistical modeling.
+Authors@R: 
+  person(given = "YourFirstName",
+         family = "YourLastName",
+         email = "your.email@example.com",
+         role = c("aut", "cre"))
+License: MIT + file LICENSE
+Depends: 
+  R (>= 3.6.0)
+Imports: 
+  survival,
+  ncdf4,
+  lubridate,
+  sf,
+  terra
+Suggests: 
+  testthat (>= 3.0.0),
+  knitr,
+  rmarkdown
+Encoding: UTF-8
+RoxygenNote: 7.3.2
+LazyData: true
