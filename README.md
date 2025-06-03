@@ -16,10 +16,11 @@ devtools::install_github("liuhongwei2018/CaseAirCross")
 
 library(CaseAirCross)
 
-# Load PM2.5 NetCDF
+##### **Load PM2.5 NetCDF**
+
 pm_data <- load_pollution("data/CHAP_PM2.5_20200101.nc")
 
-# Prepare case data
+##### **Prepare case data**
 cases <- data.frame(
   id = 1:5,
   date = as.POSIXct(rep("2020-01-01", 5)),
@@ -27,10 +28,10 @@ cases <- data.frame(
   lat = runif(5, min(pm_data$lat), max(pm_data$lat))
 )
 
-# Match exposure
+##### **Match exposure**
 matched <- geo_match(cases, pm_data)
 
-# Run case-crossover
+##### **Run case-crossover**
 results <- case_crossover(data = matched, exp_vars = "exposure", lag = 0:3)
 summary(results$model)
 
