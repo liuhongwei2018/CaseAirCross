@@ -14,37 +14,26 @@ devtools::install_github("liuhongwei2018/CaseAirCross")
 
 ## Quick Start
 
-### 1. Load Sample Data
-```r
 library(CaseAirCross)
 
-# Load built-in sample cases
-data(sample_cases)
-head(sample_cases)  # ID, date, lon, lat columns
-```
+# Load PM2.5 NetCDF
+pm_data <- load_pollution("data/CHAP_PM2.5_20200101.nc")
 
-### 2. Process Pollution Data
-```r
-# Load PM2.5 NetCDF data (replace with your file path)
-pm_data <- load_pollution("path/to/PM2_5_data.nc")
-
-# Match case locations to pollution grid
-matched_data <- geo_match(cases = sample_cases, pollution = pm_data)
-```
-
-### 3. Run Case-Crossover Analysis
-```r
-# Fit conditional logistic regression with 0-3 day lags
-model <- run_crossover(
-  data = matched_data,
-  exposure_var = "exposure",
-  lags = 0:3
+# Prepare case data
+cases <- data.frame(
+  id = 1:5,
+  date = as.POSIXct(rep("2020-01-01", 5)),
+  lon = runif(5, min(pm_data$lon), max(pm_data$lon)),
+  lat = runif(5, min(pm_data$lat), max(pm_data$lat))
 )
 
-# View results
-summary(model)
-tidy_results <- broom::tidy(model, conf.int = TRUE)
-```
+# Match exposure
+matched <- geo_match(cases, pm_data)
+
+# Run case-crossover
+results <- case_crossover(data = matched, exp_vars = "exposure", lag = 0:3)
+summary(results$model)
+
 
 ## Key Features
 - **NetCDF Integration**: Native support for climate/air quality model outputs
