@@ -12,7 +12,7 @@
 #' @importFrom progress progress_bar
 #' @importFrom sf st_as_sf st_crs st_transform
 #' @export
-geo_transform <- function(lons, lats, from = "GCJ02", to = "WGS84",
+geo_convert <- function(lons, lats, from = "GCJ02", to = "WGS84",
                           retry = 3, progress = TRUE) {
 
   # Validate coordinate systems
